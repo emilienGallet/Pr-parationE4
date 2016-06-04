@@ -1,0 +1,32 @@
+{% extends "PgGsbFraisBundle::accueil.html.twig" %}
+{% block body %}
+	{% block bloc1 %}
+		<div id="contenu">
+	      <h2>Saisir véhicule</h2>
+	      {%if(message is defined )%}
+	            <div class ="erreur">
+	            <ul>{{message}}</ul></div>
+	      {%endif%}
+			<form method="POST" action="{{ path('pg_gsb_validersaisitvehicule')}}">
+			        <p>
+			        	<label for="numImmat">Numéro d'immatriculation du véhicule</label>
+			           	<input id="text" type="text" name="numImmat"  size="30" maxlength="45">
+			        </p>
+					<p>
+			            <label for="marque">Marque du véhicule</label>
+			            <input id="text"  type="text"  name="marque" size="30" maxlength="45">
+			        </p>
+			        <p>
+			            <label for="model">Modele du véhicule</label>
+			            <input id="text"  type="text"  name="model" size="30" maxlength="45">
+			        </p>
+			        <p>
+			            <label for="couleur">Couleur du véhicule</label>
+			            <input id="text"  type="text"  name="couleur" size="30" maxlength="45">
+			        </p>
+			        <input type="submit" value="Valider" name="valider"> 
+			      </p>
+			</form>
+		</div>
+	{% endblock %}
+{% endblock %}
