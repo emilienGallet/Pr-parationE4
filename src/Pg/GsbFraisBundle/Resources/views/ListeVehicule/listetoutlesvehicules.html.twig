@@ -1,0 +1,21 @@
+{% extends "PgGsbFraisBundle::accueil.html.twig" %}
+{% block body %}
+	{% block bloc1 %}
+	<table class="listeLegere">
+		<tr>
+                <th>Numéro d'immatriculation</th>
+                <th>Marque</th>
+                <th>Modèle</th>
+                <th>Couleur</th>                
+        </tr>
+		{% for vehicule in lesvehicules %}
+			<tr>
+				<td>{{vehicule.numImmat}}</td>
+				<td>{{vehicule.marque}}</td>
+				<td>{{vehicule.model}}</td>
+				<td>{{vehicule.couleur}}</td>
+			</tr>
+		{% endfor %}
+	</table>
+	{% endblock %}
+{% endblock %}

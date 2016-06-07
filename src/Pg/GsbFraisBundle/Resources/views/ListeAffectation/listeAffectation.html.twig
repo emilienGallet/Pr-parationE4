@@ -1,0 +1,22 @@
+{% extends "PgGsbFraisBundle::accueil.html.twig" %}
+{% block body %}
+	{% block bloc1 %}
+		<table class="listeLegere">
+			<tr>
+	                <th>Numéro d'immatriculation</th>
+	                <th>Marque</th>
+	                <th>Modèle</th>
+	                <th>Couleur</th>                
+	        </tr>
+			{% for affectation in lesAffectation %}
+				<tr>
+					<td>{{affectation.visiteur_id}}</td>
+					<td>{{affectation.vehicule_numImmat}}</td>
+					<td>{{affectation.dateDebut}}</td>
+					<td>{{affectation.dateFin}}</td>
+				</tr>
+			{% endfor %}
+		</table>
+		<p><a href="{{path('pg_gsb_listeaffectation')}}" title="Add">Rajouter une affectation</a></p>
+	{% endblock %}
+{% endblock %}

@@ -28,3 +28,9 @@ pg_gsb_saisirvehicule:
 pg_gsb_validersaisitvehicule:
     pattern:  /validersaisitvehicule
     defaults: { _controller: PgGsbFraisBundle:SaisirVehicule:validersaisitvehicule } 
+pg_gsb_listeaffectation:
+    pattern:  /listeaffectation
+    defaults: { _controller: PgGsbFraisBundle:Affectation:index }
+pg_gsb_ajouteraffectation:
+    pattern:  /ajouteraffectation
+    defaults: { _controller: PgGsbFraisBundle:Affectation:add }

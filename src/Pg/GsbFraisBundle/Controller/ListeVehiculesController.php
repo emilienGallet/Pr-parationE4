@@ -7,45 +7,24 @@ use Symfony\Component\HttpFoundation\Session\Session;
 //use PdoGsb;
 class ListeVehiculesController extends Controller
 {
+    /*
+     * retourne une collection de véhicule.
+     */
     public function indexAction()
     {
+        //On récupère la sesssion de l'utilisateur
         $session= $this->container->get('request')->getSession();
-        $idVehicule =  $session->get('numImmat');
-       // $pdo = PdoGsb::getPdoGsb();
+        //On récupère l'id du visiteur
+        $idVisiteur =  $session->get('idVisiteur');
+        //on accède au service pdo afin de pouvoir communiquer avec la base de donnée
         $pdo = $this->get('pg_gsb_frais.pdo');
-        $lesMois=$pdo->getToutLesVehicule($idVehicule);
-        if($this->get('request')->getMethod() == 'GET'){
-                // Afin de sélectionner par défaut le dernier mois dans la zone de liste
-                // on demande toutes les clés, et on prend la première,
-                // les mois étant triés décroissants
-            $lesCles = array_keys( $lesVehicule );
-            $moisASelectionner = $lesCles[0];
-            return $this->render('PgGsbFraisBundle:ListeVehicule:listetoutlesvehicules.html.twig',
-                array('lesvehicule'=>$lesMois,'lemois'=>$moisASelectionner));
-        }
-        else{
-            $request = $this->get('request');
-            $leMois =  $request->request->get('lstMois');
-            $lesFraisHorsForfait = $pdo->getLesFraisHorsForfait($idVehicule,$leMois);
-            $lesFraisForfait= $pdo->getLesFraisForfait($idVehicule,$leMois);
-            $lesInfosFicheFrais = $pdo->getLesInfosFicheFrais($idVehicule,$leMois);
-            $numAnnee =substr( $leMois,0,4);
-            $numMois =substr( $leMois,4,2);
-            $libEtat = $lesInfosFicheFrais['libEtat'];
-            $montantValide = $lesInfosFicheFrais['montantValide'];
-            $nbJustificatifs = $lesInfosFicheFrais['nbJustificatifs'];
-            $dateModif =  $lesInfosFicheFrais['dateModif'];
-            $dateModif =  dateAnglaisVersFrancais($dateModif);
-            return $this->render('PgGsbFraisBundle:ListeVehicule:listetouslesfrais.html.twig',
-                array('lesmois'=>$lesMois,'lesfraisforfait'=>$lesFraisForfait,'lesfraishorsforfait'=>$lesFraisHorsForfait,
-                    'lemois'=>$leMois,'numannee'=>$numAnnee,'nummois'=> $numMois,'libetat'=>$libEtat,
-                        'montantvalide'=>$montantValide,'nbjustificatifs'=>$nbJustificatifs,'datemodif'=>$dateModif));
-            
-        }
-        
+        //On demande la liste des véhicule
+        $ListeVehicule = $pdo->getListeVehicule();
+
+        return $this->render('PgGsbFraisBundle:ListeVehicule:listetoutlesvehicules.html.twig',
+                array('lesvehicules'=>$ListeVehicule));
     }
-    
-    
+
 }
 
 

@@ -379,5 +379,25 @@ class PdoGsb{
             return $lesLignes;
 
         }
+
+        public function getListeVehicule(){
+            $req = 'SELECT * FROM vehicule';
+            $stmt = PdoGsb::$monPdo->prepare($req);
+            $stmt->execute();
+            $lesLignes = $stmt->fetchAll();
+            return $lesLignes;
+        }
+
+        /*
+         * récupère la liste des affectation, l'assotiation d'un véhicule et d'un visiteur.
+         * renvoie une collection d'affectation avec le visiteur assotier aux véhicule, la date de prise en charge et la date de retour.
+         */
+        public function getListeAffectation(){
+            $req = 'SELECT * FROM affectation';
+            $stmt = PdoGsb::$monPdo->prepare($req);
+            $stmt->execute();
+            $lesLignes = $stmt->fetchAll();
+            return $lesLignes;
+        }
 }
 ?>
